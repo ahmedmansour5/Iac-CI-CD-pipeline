@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage ("checkout from GIT") {
             steps {
-                git branch: 'main', credentialsId: 'iac_git_hub', url: 'https://github.com/ahmedmansour5/terraform-oci.git'
+                git branch: 'terraform', credentialsId: 'iac_git_hub', url: 'https://github.com/ahmedmansour5/CI-CD-pipeline.git'
             }
         }
         stage ("terraform init") {
