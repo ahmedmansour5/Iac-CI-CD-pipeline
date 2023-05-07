@@ -4,6 +4,11 @@ pipeline {
     tools {
         terraform 'terraform-v1'
     }
+    environment {
+        TF_VAR_region           = credentials('jenkins-terraform-region')
+        TF_VAR_tenancy_ocid     = credentials('jenkins-terraform-tenancy')
+        TF_VAR_compartment_ocid = credentials('jenkins-terraform-compartment')
+    }
     stages {
         stage ("checkout from GIT") {
             steps {
@@ -27,12 +32,13 @@ pipeline {
         }
         stage ("terrafrom plan") {
             steps {
-                sh 'terraform plan'
+                sh 'terraform plan -out plan'
             }
         }
-        stage ("terraform destroy") {
+        stage ("terraform action") {
             steps {
-                sh 'terraform destroy --auto-approve'
+                echo "Terraform action is --> ${action}"
+                sh 'terraform ${action} --auto-approve'
             }
         }
     }
