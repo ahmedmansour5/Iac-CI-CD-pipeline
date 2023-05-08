@@ -8,6 +8,9 @@ pipeline {
         TF_VAR_region           = credentials('jenkins-terraform-region')
         TF_VAR_tenancy_ocid     = credentials('jenkins-terraform-tenancy')
         TF_VAR_compartment_ocid = credentials('jenkins-terraform-compartment')
+        TF_VAR_user_ocid        = credentials('jenkins-terraform-user_ocid')
+        TF_VAR_fingerprint      = credentials('jenkins-terraform-fingerprint')
+        TF_VAR_private_key_path = credentials('jenkins-terraform-private_key_path')
     }
     stages {
         stage ("checkout from GIT") {
@@ -32,7 +35,7 @@ pipeline {
         }
         stage ("terrafrom plan") {
             steps {
-                sh 'terraform plan -var region=$TF_VAR_region -var compartment_ocid=$TF_VAR_compartment_ocid -var tenancy_ocid=$TF_VAR_tenancy_ocid -out plan'
+                sh 'terraform plan -out plan'
             }
         }
         stage ("terraform action") {
