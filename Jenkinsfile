@@ -4,6 +4,11 @@ pipeline {
     tools {
         terraform 'terraform-v1'
     }
+    parameters {
+        choice(name: 'action',
+                choices: ['apply', 'destroy'],
+                description: 'Select the terraform action for deployment.')
+    }
     environment {
         TF_VAR_region           = credentials('jenkins-terraform-region')
         TF_VAR_tenancy_ocid     = credentials('jenkins-terraform-tenancy')
@@ -40,8 +45,8 @@ pipeline {
         }
         stage ("terraform action") {
             steps {
-                echo "Terraform action is --> ${action}"
-                sh 'terraform ${action} --auto-approve'
+                echo "Terraform action is ${params.action}"
+                sh 'terraform ${params.action} --auto-approve'
             }
         }
     }
