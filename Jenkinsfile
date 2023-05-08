@@ -35,7 +35,7 @@ pipeline {
         }
         stage ("terrafrom plan") {
             steps {
-                sh 'terraform plan -out plan'
+                sh 'terraform plan -var region=$TF_VAR_region -var compartment_ocid=$TF_VAR_compartment_ocid -var tenancy_ocid=$TF_VAR_tenancy_ocid -var private_key_path=$TF_VAR_private_key_path -var fingerprint=$TF_VAR_fingerprint -var user_ocid=$TF_VAR_user_ocid -out plan'
             }
         }
         stage ("terraform action") {
