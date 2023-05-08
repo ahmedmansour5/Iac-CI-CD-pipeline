@@ -3,6 +3,10 @@
 
 variable "tenancy_ocid" {}
 variable "region" {}
+variable "fingerprint" {}
+variable "private_key_path" {}
+variable "user_ocid" {}
+
 variable "ssh_public_key" {
   default = ""
 }
