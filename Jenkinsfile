@@ -46,7 +46,8 @@ pipeline {
         stage ("terraform action") {
             steps {
                 echo "Terraform action is ${params.action}"
-                sh "terraform ${params.action}"
+                input message: "Confirm ${params.action} to production...", ok: 'Deploy'
+                sh "terraform ${params.action} --auto-approve"
             }
         }
     }
