@@ -48,7 +48,7 @@ pipeline {
                 echo "Terraform action is ${params.action}"
                 input message: "Confirm ${params.action} to production...", ok: 'Deploy'
                 sh "terraform ${params.action} --auto-approve"
-                archiveArtifacts artifacts: "plan.${env.BUILD_NUMBER}", fingerprint: true, followSymlinks: false, onlyIfSuccessful: true
+                archiveArtifacts artifacts: "plan.${env.BUILD_NUMBER}, terraform.tfstate", fingerprint: true, followSymlinks: false, onlyIfSuccessful: true
             }
         }
     }
